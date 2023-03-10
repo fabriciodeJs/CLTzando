@@ -1,14 +1,74 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style.css">
     <title>CLTzando</title>
 </head>
+
 <body>
     <header>
-        
+       <img src="img/LogoSample_ByTailorBrands__6_-removebg-preview.png" alt="logo">
+        <nav class="navegacao">
+            <a href="#">Home</a>
+            <a href="#">Serviços</a>
+            <a href="#">Cadastro</a>
+            <a href="#">Contato</a>
+            <button class="btn-Login">Login</button>
+        </nav>
     </header>
+    <main>
+        <table>
+            <tbody>
+                <tr>
+                    <td id="dados" colspan="3">
+                        <ul class="moeda">
+                            <li class="dolar">
+                                <section>Dolar</section>
+                                <section>R$5,18</section>
+                            </li>
+                            <li class="euro">
+                                <section>Euro</section>
+                                <section>R$ 5,52</section>
+                            </li>
+                            <li class="ibovespa">
+                                <section>Ibovespa</section>
+                                <section>103.935</section>
+                            </li>
+                            <li class="bitcoin">
+                                <section>Bitcoin</section>
+                                <section>R$103.136,49</section>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h1>Calculo Salário Liquido</h1>
+        <section class="grupo-calculo">
+            <form action="#">
+                <h2>Calculadora</h2>
+                <div class="inputSalario">
+                    <label class="labelValor" for="salarioBruto">Salario Bruto</label>
+                    <input id="valorSalario" class="inputValor" type="Number">
+                    <label class="labelValor" for="desconto1">Descontos Adicionais</label>
+                    <input id="valorDescontos" class="inputValor" type="Number">
+                    <label class="labelValor" for="desconto2">Numero de Dependetes</label>
+                    <input id="valorDependetes" class="inputValor" type="Number">
+                    <input id="btnSLiquido" class="inputValor" type="submit" value="Calcular">
+                </div>
+            </form>
+            <article>
+                <p>Passo 1 – Desconte do salário bruto o valor referente ao INSS.</p>
+                <p>Passo 2 – Com esse resultado, localize na tabela do Imposto de Renda em qual faixa se enquadra.</p>
+                <p>Passo 3 – Calcule quanto equivale, em reais, o percentual de desconto para seu salário.</p>
+                <p>Passo 4 – Subtraia desse desconto o valor da parcela a reduzir.</p>
+            </article>
+        </section>
+    </main>
 </body>
+
 </html>
