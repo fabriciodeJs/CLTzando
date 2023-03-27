@@ -13,46 +13,49 @@ const btnSalario = document.querySelector('#btnSLiquido');
 
 
 btnSalario.addEventListener('click', (e) => {
-    let salario = Number.parseFloat(salarioBruto.value);
-    let desconto = Number.parseFloat(descontos.value);
-    let depedentes = Number.parseInt(dependetes.value)
+    let salario = Number(salarioBruto.value);
+    let desconto = Number(descontos.value);
+    let depedentes = Number(dependetes.value)
 
-
+    
     const inss = verificacaoInss(salario);
-    calculoSalarioLiquido(salario, inss, depedentes, desconto);
 
-
-
-
-
+    const salarioLiquido = calculoSalarioLiquido(salario, inss, depedentes, desconto);
+    console.log(salarioLiquido);
+    
+    
     salarioBruto.value = '';
     descontos.value = '';
     dependetes.value = '';
 });
 
-function calculoSalarioLiquido(salario, inss, depedentes, desconto) {
+function calculoSalarioLiquido(salarioBruto, inss, depedentes, desconto) {
 
-    console.log(inss)
-    console.log(salario)
-    console.log(depedentes)
-    console.log(desconto)
+   const salarioSemInss = salarioBruto - (salarioBruto * inss / 100);
 
+   const salarioComDesconto = salarioSemInss - desconto;
 
+   if(depedentes <= 0 && salarioBruto <= 1903.98){
+        return salarioComDesconto;
+   }else{
+   
+   }
+   }
 
-}
 
 function verificacaoInss(salario) {
 
-    if (salario <= 1302) return 7, 5;
+    if(salario <= 1302) return 7.5;
 
-    if (salario <= 2571, 29) return 9;
+    if(salario > 1302 && salario <= 2571.29) return 9;
+   
+    if(salario > 2571.29 && salario <= 3856.94) return 12;
 
-    if (salario <= 3856, 94) return 12;
-
-    if (salario <= 7507, 49) return 14;
+    return 14;
 
 }
-String.prototype.reverse = function () {
+
+/*String.prototype.reverse = function () {
     return this.split('').reverse().join('');
 };
 
@@ -72,4 +75,4 @@ function mascaraMoeda(campo, evento) {
         }
     }
     campo.value = resultado.reverse();
-}
+}*/
