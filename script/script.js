@@ -15,43 +15,72 @@ const btnSalario = document.querySelector('#btnSLiquido');
 btnSalario.addEventListener('click', (e) => {
     let salario = Number(salarioBruto.value);
     let desconto = Number(descontos.value);
-    let depedentes = Number(dependetes.value)
+    let depedentes = Number(dependetes.value);
 
-    
-    const inss = verificacaoInss(salario);
-
-    const salarioLiquido = calculoSalarioLiquido(salario, inss, depedentes, desconto);
-    console.log(salarioLiquido);
-    
-    
+    const salarioSemInss = calculoInss(salario);
+    const irrf = calculoIrrf(salarioSemInss, salario);
+    const salarioComDesconto = calculoDesconto(salarioSemInss, desconto);
+    console.log(salarioComDesconto);
     salarioBruto.value = '';
     descontos.value = '';
     dependetes.value = '';
 });
 
-function calculoSalarioLiquido(salarioBruto, inss, depedentes, desconto) {
+function calculoDesconto(salarioSemInss, desconto) {
 
-   const salarioSemInss = salarioBruto - (salarioBruto * inss / 100);
+    return salarioSemInss - desconto;
+}
 
-   const salarioComDesconto = salarioSemInss - desconto;
+function calculoIrrf(salarioSemInss, salario) {
 
-   if(depedentes <= 0 && salarioBruto <= 1903.98){
-        return salarioComDesconto;
-   }else{
-   
-   }
-   }
+    if (salario <= 1903.98) {
+        return salarioSemInss;
+    }
 
+    if (salario <= 2826, 65) {
+        const parcela = 142.8;
+        return (salarioSemInss * 7.5 / 100) - parcela ;
+    }
+    
+    if (salario <= 3751.05) {
+        const parcela = 354.80;
+        return (salarioSemInss * 15 / 100) - parcela;
+    }
 
-function verificacaoInss(salario) {
+    if (salario <= 4664.68) {
+        const parcela = 636.13;
+        return (salarioSemInss * 22.5 / 100) - parcela;
+    }
 
-    if(salario <= 1302) return 7.5;
+    const parcela = 869.36;
+    return (salarioSemInss * 27.5/ 100) - parcela;
+    
+}
 
-    if(salario > 1302 && salario <= 2571.29) return 9;
-   
-    if(salario > 2571.29 && salario <= 3856.94) return 12;
+function calculoInss(salario) {
 
-    return 14;
+    if (salario <= 1302) {
+        const inss = 7.5;
+        return salario - (salario * inss / 100);
+    }
+
+    if (salario <= 2571.29) {
+        const inss = 9;
+        return salario - (salario * inss / 100);
+    }
+
+    if (salario <= 3856.94) {
+        const inss = 12;
+        return salario - (salario * inss / 100);
+    }
+
+    if (salario <= 4664.68) {
+        const inss = 14;
+        return salario - (salario * inss / 100);
+    }
+
+    const inss = 828.39;
+    return salario - inss;
 
 }
 
