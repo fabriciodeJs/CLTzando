@@ -83,7 +83,7 @@ header img {
     color: var(--primaria);
 }
 /*-------------------Moedas-----------------------------*/
-table {
+#tabela-moedas {
     width: 100%;
     height: 20px;
     background-image: url(../img/fundo-moeda.jpg);
@@ -120,8 +120,9 @@ table {
 }
 /*----------------Main-----------------------------*/
 main {
-    width: 80vw;
+    width: 70vw;
     margin: auto;
+    padding-bottom: 100px;
     background-color: #fff;
     color: black;
     
@@ -216,8 +217,28 @@ form h2 {
     margin: 50px 30px;
     
 }
-#resultadoSalario #saidaSalario {
-    width: 100%;
-    height: 20vh;
-    border: 3px solid blue;
+#tabela-resultado{
+    width: 70%;
+    margin: auto;
+    border-collapse: collapse;
 }
+#tabela-resultado td,th{
+    border: 2px solid black;
+    font-weight: 500;
+    font-size: 1.1em;
+    text-align: center;
+    padding: 10px 0px;
+    color: black;
+}
+#tabela-resultado th{
+    font-size: 1.5em;
+}
+#tabela-resultado .topicos {
+    font-size: 1.2em;
+    font-weight: bolder;
+    text-align: left;
+    padding-left: 10px;
+}
+
+
+

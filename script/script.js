@@ -4,83 +4,109 @@ const saida_euro = document.querySelector('.euro');
 const saida_ibovespa = document.querySelector('.ibovespa');
 const saida_bitcoin = document.querySelector('.bitcoin');
 /*                  Input                */
-const saidaSalarioLiquido = document.querySelector('#resultadoSalario');
 const salarioBruto = document.querySelector('#valorSalario');
 const descontos = document.querySelector('#valorDescontos');
 const dependetes = document.querySelector('#valorDependetes');
 const btnSalario = document.querySelector('#btnSLiquido');
-
+/*                  Saida-tabela                */
+const saidaSalarioBru = document.querySelector('#salarioBruto');
+const innsPorc = document.querySelector('#saida-inss');
+const valorInss = document.querySelector('#saida-valor-inss');
+const valorDesconto = document.querySelector('#desconto');
+const saidaIrrfPorc = document.querySelector('porcentagemIrrf');
+const saidaIrrfValor = document.querySelector('valorIrrf');
+const saidaSalarioLiq = document.querySelector('#sLiquido');
 
 
 btnSalario.addEventListener('click', (e) => {
-    let salario = Number(salarioBruto.value);
-    let desconto = Number(descontos.value);
-    let depedentes = Number(dependetes.value);
+    e.preventDefault();
 
-    const salarioSemInss = calculoInss(salario);
-    const irrf = calculoIrrf(salarioSemInss, salario);
-    const salarioComDesconto = calculoDesconto(salarioSemInss, desconto);
-    console.log(salarioComDesconto);
-    salarioBruto.value = '';
+    let salarioB = Number(salarioBruto.value);
+    let desconto = Number(descontos.value);
+    let pensao = Number(dependetes.value);
+
+    const inss = calculoInss(salarioB);
+    const irrf = calculoIrrf(salarioB);
+    const salarioLiquido = calculoSalario(inss, irrf, pensao, desconto, salarioB);
+    
+    
+    formatar(salarioB, desconto, pensao, inss, irrf, salarioLiquido);
+    
+    /*salarioBruto.value = '';
     descontos.value = '';
-    dependetes.value = '';
+    dependetes.value = '';*/
 });
 
-function calculoDesconto(salarioSemInss, desconto) {
+function formatar(salarioB, desconto, pensao = 0.0, inss = 0.0, irrf = 0, salarioLiquido) {
+    
+    const salarioBruto = salarioB.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    const desc = desconto.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    const pen = pensao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    const ins = inss.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    const irr = irrf.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    const salarioL = salarioLiquido.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    
+    
+    saidaValores(salarioBruto, desc, pen, ins, irr, salarioL);
+    
+}
 
-    return salarioSemInss - desconto;
+function saidaValores(salarioBruto, desconto, pensao, inss, irrf, salarioLiquido){
+    saidaSalarioBru.innerHTML = salarioBruto;
+    valorDesconto.innerHTML = desconto;
+    valorInss.innerHTML = pensao;
+    valorDesconto.innerHTML = inss;
+    saidaIrrfValor.innerHTML = irrf;
+    saidaSalarioLiq.innerHTML = salarioLiquido;
+}
+
+function calculoSalario(inss, irrf, pensao, desconto, salario) {
+    const salarioLiquido = (((salario - inss) - irrf ) - pensao) - desconto;
+
+    return salarioLiquido;
 }
 
 function calculoIrrf(salarioSemInss, salario) {
 
     if (salario <= 1903.98) {
-        return salarioSemInss;
+        return 0;
     }
 
     if (salario <= 2826, 65) {
-        const parcela = 142.8;
-        return (salarioSemInss * 7.5 / 100) - parcela ;
+        return 142.8 ;
     }
-    
+
     if (salario <= 3751.05) {
-        const parcela = 354.80;
-        return (salarioSemInss * 15 / 100) - parcela;
+        return 354.80;
     }
 
     if (salario <= 4664.68) {
-        const parcela = 636.13;
-        return (salarioSemInss * 22.5 / 100) - parcela;
+        return 636.13;
     }
 
-    const parcela = 869.36;
-    return (salarioSemInss * 27.5/ 100) - parcela;
+    return 869.36;
     
 }
 
 function calculoInss(salario) {
 
     if (salario <= 1302) {
-        const inss = 7.5;
-        return salario - (salario * inss / 100);
+        return salario * 7.5 / 100;
     }
 
     if (salario <= 2571.29) {
-        const inss = 9;
-        return salario - (salario * inss / 100);
+        return salario * 9 / 100;
     }
 
     if (salario <= 3856.94) {
-        const inss = 12;
-        return salario - (salario * inss / 100);
+        return salario * 12 / 100;
     }
 
     if (salario <= 4664.68) {
-        const inss = 14;
-        return salario - (salario * inss / 100);
+        return salario * 14 / 100;
     }
 
-    const inss = 828.39;
-    return salario - inss;
+    return 828.39;
 
 }
 

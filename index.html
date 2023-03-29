@@ -21,7 +21,7 @@
         </nav>
     </header>
     <main>
-        <table>
+        <table id="tabela-moedas">
             <tbody>
                 <tr>
                     <td id="dados" colspan="3">
@@ -55,9 +55,9 @@
                     <label class="labelValor" for="salarioBruto">Salario Bruto</label>
                     <input id="valorSalario" class="inputValor" type="Number" required>
                     <label class="labelValor" for="desconto1">Descontos Adicionais</label>
-                    <input id="valorDescontos" class="inputValor" type="Number" required>
-                    <label class="labelValor" for="desconto2">Numero de Dependetes</label>
-                    <input id="valorDependetes" class="inputValor" type="Number" required>
+                    <input id="valorDescontos" class="inputValor" type="Number">
+                    <label class="labelValor" for="desconto2">Pensão</label>
+                    <input id="valorDependetes" class="inputValor" type="Number">
                     <input id="btnSLiquido" class="inputValor" type="submit" value="Calcular">
                 </div>
             </form>
@@ -71,7 +71,48 @@
         <section id="resultadoSalario">
             <h2>Salário Liquido</h2>
             <div id="saidaSalario">
-                
+                <table id="tabela-resultado">
+                    <thead>
+                        <tr id="cabecalho">
+                            <th>Eventos</th>
+                            <th>Porcentagem</th>
+                            <th>Descontos</th>
+                            <th>Proventos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="topicos">Sálario Bruto</td>
+                            <td>-</td>
+                            <td id="salarioBruto"></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td class="topicos">INSS</td>
+                            <td id="saida-inss"></td>
+                            <td>-</td>
+                            <td id="saida-valor-inss"></td>
+                        </tr>
+                        <tr>
+                            <td class="topicos">Outros</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td id="desconto"></td>
+                        </tr>
+                        <tr>
+                            <td class="topicos">IRRF</td>
+                            <td id="porcentagemIrrf"></td>
+                            <td>-</td>
+                            <td id="valorIrrf"></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="2">Total</th>
+                            <th id="sLiquido" colspan="2"></th>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </section>
     </main>
