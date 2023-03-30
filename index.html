@@ -5,13 +5,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="style/style.css" >
+    <link rel="stylesheet" href="style/mediaquery.css">
     <title>CLTzando</title>
 </head>
 
 <body>
     <header>
        <img src="img/LogoSample_ByTailorBrands__6_-removebg-preview.png" alt="logo">
+       <span id="btn-menu" class="material-symbols-outlined">menu</span>
+        </nav>
         <nav class="navegacao">
             <a href="#">Home</a>
             <a href="#">Serviços</a>
@@ -19,6 +23,15 @@
             <a href="#">Contato</a>
             <button class="btn-Login">Login</button>
         </nav>
+        
+        <nav class="navegacao-mobile">
+            <a href="#">Home</a>
+            <a href="#">Serviços</a>
+            <a href="#">Cadastro</a>
+            <a href="#">Contato</a>
+            <button class="btn-Login">Login</button>
+        </nav>
+        
     </header>
     <main>
         <table id="tabela-moedas">
@@ -113,7 +126,7 @@
                             <td id="valorIrrf"></td>
                         </tr>
                         <tr>
-                            <td class="topicos">Total</td>
+                            <td class="topicos">Total de Descontos</td>
                             <td>-</td>
                             <td>-</td>
                             <td id="total"></td>
