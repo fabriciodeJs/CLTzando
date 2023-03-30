@@ -13,9 +13,11 @@ const saidaSalarioBru = document.querySelector('#salarioBruto');
 const innsPorc = document.querySelector('#saida-inss');
 const valorInss = document.querySelector('#saida-valor-inss');
 const valorDesconto = document.querySelector('#desconto');
-const saidaIrrfPorc = document.querySelector('porcentagemIrrf');
-const saidaIrrfValor = document.querySelector('valorIrrf');
+const saidaIrrfPorc = document.querySelector('#porcentagemIrrf');
+const saidaIrrfValor = document.querySelector('#valorIrrf');
 const saidaSalarioLiq = document.querySelector('#sLiquido');
+const saidaPensao = document.querySelector('#saida-pensao');
+const totalDesconto = document.querySelector('#total');
 
 
 btnSalario.addEventListener('click', (e) => {
@@ -26,18 +28,24 @@ btnSalario.addEventListener('click', (e) => {
     let pensao = Number(dependetes.value);
 
     const inss = calculoInss(salarioB);
-    const irrf = calculoIrrf(salarioB);
+    const irrf = calculoIrrf(salarioB, inss);
+    const totalDesc = calculoDesconto(inss, irrf, desconto, pensao);
     const salarioLiquido = calculoSalario(inss, irrf, pensao, desconto, salarioB);
     
     
-    formatar(salarioB, desconto, pensao, inss, irrf, salarioLiquido);
+    formatar(salarioB, desconto, pensao, inss, irrf, salarioLiquido, totalDesc);
     
-    /*salarioBruto.value = '';
+    salarioBruto.value = '';
     descontos.value = '';
-    dependetes.value = '';*/
+    dependetes.value = '';
 });
 
-function formatar(salarioB, desconto, pensao = 0.0, inss = 0.0, irrf = 0, salarioLiquido) {
+function calculoDesconto(inss, irrf, desconto, pensao){
+    return inss + irrf + desconto + pensao;
+}
+
+
+function formatar(salarioB, desconto, pensao = 0.0, inss = 0.0, irrf = 0, salarioLiquido, totalDesc) {
     
     const salarioBruto = salarioB.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     const desc = desconto.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -45,72 +53,84 @@ function formatar(salarioB, desconto, pensao = 0.0, inss = 0.0, irrf = 0, salari
     const ins = inss.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     const irr = irrf.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     const salarioL = salarioLiquido.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    const total = totalDesc.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     
     
-    saidaValores(salarioBruto, desc, pen, ins, irr, salarioL);
+    saidaValores(salarioBruto, desc, pen, ins, irr, salarioL, total);
     
 }
 
-function saidaValores(salarioBruto, desconto, pensao, inss, irrf, salarioLiquido){
+function saidaValores(salarioBruto, desconto, pensao, inss, irrf, salarioLiquido, total){
     saidaSalarioBru.innerHTML = salarioBruto;
     valorDesconto.innerHTML = desconto;
-    valorInss.innerHTML = pensao;
-    valorDesconto.innerHTML = inss;
+    valorInss.innerHTML = inss;
+    saidaPensao.innerHTML = pensao;
     saidaIrrfValor.innerHTML = irrf;
     saidaSalarioLiq.innerHTML = salarioLiquido;
+    totalDesconto.innerHTML = total;
 }
 
-function calculoSalario(inss, irrf, pensao, desconto, salario) {
-    const salarioLiquido = (((salario - inss) - irrf ) - pensao) - desconto;
+function calculoSalario(inss, irrf, pensao = 0.0, desconto = 0.0, salario) {
+    const salarioLiquido = ((salario - inss) - pensao) - desconto;
 
     return salarioLiquido;
 }
 
-function calculoIrrf(salarioSemInss, salario) {
+function calculoIrrf(salario, inss) {
 
     if (salario <= 1903.98) {
+        saidaIrrfPorc.innerHTML = '0%';
         return 0;
     }
 
-    if (salario <= 2826, 65) {
-        return 142.8 ;
+    if (salario <= 2826,65) {
+        saidaIrrfPorc.innerHTML = '7.5%';
+        return inss - 142.8;
     }
 
     if (salario <= 3751.05) {
-        return 354.80;
+        saidaIrrfPorc.innerHTML = '15%';
+        return inss - 354.80;
     }
 
     if (salario <= 4664.68) {
-        return 636.13;
+        saidaIrrfPorc.innerHTML = '22.5%';
+        return inss - 636.13;
     }
 
-    return 869.36;
+    saidaIrrfPorc.innerHTML = 'Teto - 27.5%';
+    return inss - 869.36;
     
 }
 
 function calculoInss(salario) {
 
     if (salario <= 1302) {
+        innsPorc.innerHTML = '7.5%'
         return salario * 7.5 / 100;
     }
 
     if (salario <= 2571.29) {
+        innsPorc.innerHTML = '9%'
         return salario * 9 / 100;
     }
 
     if (salario <= 3856.94) {
+        innsPorc.innerHTML = '12%'
         return salario * 12 / 100;
     }
 
     if (salario <= 4664.68) {
+        innsPorc.innerHTML = '14%'
         return salario * 14 / 100;
     }
 
+    innsPorc.innerHTML = 'Teto - R$ 828.39'
     return 828.39;
 
 }
 
-/*String.prototype.reverse = function () {
+String.prototype.reverse = function () {
     return this.split('').reverse().join('');
 };
 
@@ -130,4 +150,4 @@ function mascaraMoeda(campo, evento) {
         }
     }
     campo.value = resultado.reverse();
-}*/
+}

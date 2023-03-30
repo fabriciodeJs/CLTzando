@@ -53,7 +53,8 @@
                 <h2>Calculadora</h2>
                 <div class="inputSalario">
                     <label class="labelValor" for="salarioBruto">Salario Bruto</label>
-                    <input id="valorSalario" class="inputValor" type="Number" required>
+                   <!--<input onKeyUp="mascaraMoeda(this, event)" id="valorSalario" class="inputValor" type="text" required>--> 
+                   <input id="valorSalario" class="inputValor" type="text" required>
                     <label class="labelValor" for="desconto1">Descontos Adicionais</label>
                     <input id="valorDescontos" class="inputValor" type="Number">
                     <label class="labelValor" for="desconto2">Pensão</label>
@@ -76,8 +77,8 @@
                         <tr id="cabecalho">
                             <th>Eventos</th>
                             <th>Porcentagem</th>
-                            <th>Descontos</th>
                             <th>Proventos</th>
+                            <th>Descontos</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -100,15 +101,27 @@
                             <td id="desconto"></td>
                         </tr>
                         <tr>
+                            <td class="topicos">Pensão</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td id="saida-pensao"></td>
+                        </tr>
+                        <tr>
                             <td class="topicos">IRRF</td>
                             <td id="porcentagemIrrf"></td>
                             <td>-</td>
                             <td id="valorIrrf"></td>
                         </tr>
+                        <tr>
+                            <td class="topicos">Total</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td id="total"></td>
+                        </tr>
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="2">Total</th>
+                            <th colspan="2">Salário Líquido</th>
                             <th id="sLiquido" colspan="2"></th>
                         </tr>
                     </tfoot>
