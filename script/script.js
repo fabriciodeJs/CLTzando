@@ -22,11 +22,16 @@ const totalDesconto = document.querySelector('#total');
 
 btnSalario.addEventListener('click', (e) => {
     e.preventDefault();
-
+    
+    console.log(typeof salarioBruto.value)
+    const convertida = parseInt(salarioBruto.value.split(",")[0].replace(/\D/g,""));
+    let a = Number.parseInt(convertida);
+    console.log(a)
+    
     let salarioB = Number(salarioBruto.value);
     let desconto = Number(descontos.value);
     let pensao = Number(dependetes.value);
-
+    
     const inss = calculoInss(salarioB);
     const irrf = calculoIrrf(salarioB, inss);
     const totalDesc = calculoDesconto(inss, irrf, desconto, pensao);
