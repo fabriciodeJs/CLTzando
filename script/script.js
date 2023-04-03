@@ -19,22 +19,23 @@ const saidaSalarioLiq = document.querySelector('#sLiquido');
 const saidaPensao = document.querySelector('#saida-pensao');
 const totalDesconto = document.querySelector('#total');
 
-
 btnSalario.addEventListener('click', (e) => {
-    e.preventDefault();
     
-    console.log(typeof salarioBruto.value)
-    const convertida = parseInt(salarioBruto.value.split(",")[0].replace(/\D/g,""));
-    let a = Number.parseInt(convertida);
-    console.log(a)
+    if(!salarioBruto.value){
+         alert('Preencha com o Sálario') 
+         return;
+    } 
     
-    let salarioB = Number(salarioBruto.value);
-    let desconto = Number(descontos.value);
-    let pensao = Number(dependetes.value);
     
-    const inss = calculoInss(salarioB);
+    
+    
+    let salarioB = parseInt(salarioBruto.value.split(",")[0].replace(/\D/g,""));
+    let desconto = Number(descontos.value.split(",")[0].replace(/\D/g,""));
+    let pensao = Number(dependetes.value.split(",")[0].replace(/\D/g,""));
+
+    const inss = calculoInss(salarioB, pensao, desconto);
     const irrf = calculoIrrf(salarioB, inss);
-    const totalDesc = calculoDesconto(inss, irrf, desconto, pensao);
+    const totalDesc = calculoDescontos(inss, irrf, desconto, pensao);
     const salarioLiquido = calculoSalario(inss, irrf, pensao, desconto, salarioB);
     
     
@@ -43,9 +44,10 @@ btnSalario.addEventListener('click', (e) => {
     salarioBruto.value = '';
     descontos.value = '';
     dependetes.value = '';
+    
 });
 
-function calculoDesconto(inss, irrf, desconto, pensao){
+function calculoDescontos(inss, irrf, desconto, pensao){
     return inss + irrf + desconto + pensao;
 }
 
@@ -82,6 +84,8 @@ function calculoSalario(inss, irrf, pensao = 0.0, desconto = 0.0, salario) {
 }
 
 function calculoIrrf(salario, inss) {
+
+    console.log(salario)
 
     if (salario <= 1903.98) {
         saidaIrrfPorc.innerHTML = '0%';

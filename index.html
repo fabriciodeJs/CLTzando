@@ -6,32 +6,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <link rel="stylesheet" href="style/style.css" >
+    <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/mediaquery.css">
     <title>CLTzando</title>
 </head>
 
-<body>
+<body class=".pagina">
     <header>
-       <img src="img/LogoSample_ByTailorBrands__6_-removebg-preview.png" alt="logo">
-       <span id="btn-menu" class="material-symbols-outlined">menu</span>
-        </nav>
-        <nav class="navegacao">
+        <div>
+            <img src="img/LogoSample_ByTailorBrands__6_-removebg-preview.png" alt="logo">
+            <span id="btn-menu" class="material-symbols-outlined">menu</span>
+        </div>
+        <nav class="navegacao" >
             <a href="#">Home</a>
             <a href="#">Serviços</a>
             <a href="#">Cadastro</a>
             <a href="#">Contato</a>
             <button class="btn-Login">Login</button>
         </nav>
-        
-        <nav class="navegacao-mobile">
+        <nav class="navegacao-mobile" style="display: none;">
             <a href="#">Home</a>
             <a href="#">Serviços</a>
             <a href="#">Cadastro</a>
             <a href="#">Contato</a>
             <button class="btn-Login">Login</button>
         </nav>
-        
     </header>
     <main>
         <table id="tabela-moedas">
@@ -66,12 +65,12 @@
                 <h2>Calculadora</h2>
                 <div class="inputSalario">
                     <label class="labelValor" for="salarioBruto">Salario Bruto</label>
-                   <input onKeyUp="mascaraMoeda(this, event)" id="valorSalario" class="inputValor" type="text" required>
-                  
+                    <input onKeyUp="mascaraMoeda(this, event)" id="valorSalario" class="inputValor" type="text"
+                        required>
                     <label class="labelValor" for="desconto1">Descontos Adicionais</label>
-                    <input id="valorDescontos" class="inputValor" type="Number">
+                    <input onKeyUp="mascaraMoeda(this, event)" id="valorDescontos" class="inputValor" type="text">
                     <label class="labelValor" for="desconto2">Pensão</label>
-                    <input id="valorDependetes" class="inputValor" type="Number">
+                    <input onKeyUp="mascaraMoeda(this, event)" id="valorDependetes" class="inputValor" type="text">
                     <input id="btnSLiquido" class="inputValor" type="submit" value="Calcular">
                 </div>
             </form>
@@ -98,32 +97,32 @@
                         <tr>
                             <td class="topicos">Sálario Bruto</td>
                             <td>-</td>
-                            <td id="salarioBruto"></td>
+                            <td id="salarioBruto">-</td>
                             <td>-</td>
                         </tr>
                         <tr>
                             <td class="topicos">INSS</td>
-                            <td id="saida-inss"></td>
+                            <td id="saida-inss">-</td>
                             <td>-</td>
-                            <td id="saida-valor-inss"></td>
+                            <td id="saida-valor-inss">-</td>
                         </tr>
                         <tr>
                             <td class="topicos">Outros</td>
                             <td>-</td>
                             <td>-</td>
-                            <td id="desconto"></td>
+                            <td id="desconto">-</td>
                         </tr>
                         <tr>
                             <td class="topicos">Pensão</td>
                             <td>-</td>
                             <td>-</td>
-                            <td id="saida-pensao"></td>
+                            <td id="saida-pensao">-</td>
                         </tr>
                         <tr>
                             <td class="topicos">IRRF</td>
-                            <td id="porcentagemIrrf"></td>
+                            <td id="porcentagemIrrf">-</td>
                             <td>-</td>
-                            <td id="valorIrrf"></td>
+                            <td id="valorIrrf">-</td>
                         </tr>
                         <tr>
                             <td class="topicos">Total de Descontos</td>
@@ -135,7 +134,7 @@
                     <tfoot>
                         <tr>
                             <th colspan="2">Salário Líquido</th>
-                            <th id="sLiquido" colspan="2"></th>
+                            <th id="sLiquido" colspan="2">-</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -143,6 +142,7 @@
         </section>
     </main>
     <script src="script/script.js"></script>
+    <script src="script/mobile.js"></script>
 </body>
 
 </html>
